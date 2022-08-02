@@ -20,8 +20,7 @@ jobs:
         with:
           node-version: 16
       - name: Build and zip extension artifact
-        run:
-          - npm run build:ff:ci
+        run: npm run build:ff:ci
       - name: Browser Platform Publish
         uses: PlasmoHQ/bpp@v2
         with:
