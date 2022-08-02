@@ -15,16 +15,15 @@ export const updateInstance = ({
 	instance.update();
 };
 
-let target = null;
-let timeout = null;
+let target: HTMLElement | null = null;
+let timeout: NodeJS.Timeout | null = null;
 
 export const onMouseMove = ({
 	ev,
-	source,
+	state,
 	instance,
 	virtualElement,
-	setSrc,
-	setMode,
+	setState,
 }: MouseMoveProps) => {
 	const evTarget = ev.target as HTMLElement;
 
@@ -37,7 +36,7 @@ export const onMouseMove = ({
 		timeout = null;
 	}
 
-	if (source) setSrc(null);
+	if (state) setState(null);
 
 	target = evTarget;
 	timeout = setTimeout(() => {
@@ -54,9 +53,15 @@ export const onMouseMove = ({
 				continue;
 			}
 
-			setMode(replacer.type);
 			const replaced = src.replace(replacer.regex, replacer.result);
-			setSrc(replaced);
+			setState({
+				type: replacer.type,
+				src: replaced,
+				trigger: {
+					x: ev.clientX,
+					y: ev.clientY,
+				},
+			});
 		}
 
 		const onTargetMouseMove = (targetMouseMoveEvent: MouseEvent) =>
@@ -68,7 +73,7 @@ export const onMouseMove = ({
 			});
 
 		const onTargetMouseLeave = () => {
-			setSrc(null);
+			setState(null);
 
 			evTarget.removeEventListener("mouseleave", onTargetMouseLeave);
 			evTarget.removeEventListener("mousemove", onTargetMouseMove);

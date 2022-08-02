@@ -3,7 +3,8 @@ import cssText from "data-text:./contents.css";
 import type { PlasmoContentScript } from "plasmo";
 import { useEffect, useState } from "react";
 
-import { onMouseMove } from "~libs/events";
+import type { PopupState } from "~interfaces";
+import { onMouseMove, updateInstance } from "~libs/events";
 import {
 	applyMaxSizeModifier,
 	maxSizeModifier,
@@ -15,8 +16,6 @@ import {
 	generateGetBoundingClientRect,
 	throttle,
 } from "~libs/utilities";
-
-console.log("Injecting into page");
 
 export const config: PlasmoContentScript = {
 	matches: ["<all_urls>"],
@@ -36,8 +35,7 @@ const instance = createPopper(virtualElement, container, {
 });
 
 function Popup() {
-	const [src, setSrc] = useState<string | null>(null);
-	const [mode, setMode] = useState<"video" | "image">("image");
+	const [state, setState] = useState<PopupState | null>(null);
 
 	useEffect(() => {
 		const debouncedMouseMoveHandler = throttle(
@@ -46,10 +44,9 @@ function Popup() {
 				onMouseMove({
 					ev,
 					instance,
-					setSrc,
-					setMode,
-					source: src,
+					state,
 					virtualElement,
+					setState,
 				}),
 			50
 		);
@@ -57,26 +54,37 @@ function Popup() {
 		document.addEventListener("mousemove", debouncedMouseMoveHandler);
 	}, []);
 
-	if (mode === "video")
-		return (
-			// eslint-disable-next-line jsx-a11y/media-has-caption
+	useEffect(() => {
+		if (!state) return;
+
+		updateInstance({
+			x: state.trigger.x,
+			y: state.trigger.y,
+			instance,
+			virtualElement,
+		});
+	}, [state]);
+
+	return (
+		<>
+			{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
 			<video
-				src={src}
+				src={state?.src}
 				className="imagus-popup-image"
-				style={{ display: src ? "initial" : "none" }}
+				style={{
+					display: state?.src && state.type !== "image" ? "initial" : "none",
+				}}
 				autoPlay
 				loop
 			/>
-		);
-
-	return (
-		<img
-			className="imagus-popup-image"
-			style={{ display: src ? "initial" : "none" }}
-			src={src}
-			alt=""
-			role="presentation"
-		/>
+			<img
+				src={state?.src}
+				className="imagus-popup-image"
+				style={{ display: state?.src ? "initial" : "none" }}
+				alt=""
+				role="presentation"
+			/>
+		</>
 	);
 }
 

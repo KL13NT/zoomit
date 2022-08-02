@@ -1,4 +1,4 @@
-import { detectOverflow } from "@popperjs/core";
+import { Modifier, Options, detectOverflow } from "@popperjs/core";
 
 export const preventOverflowModifier = {
 	name: "preventOverflow",
@@ -8,7 +8,7 @@ export const preventOverflowModifier = {
 	},
 };
 
-export const maxSizeModifier = {
+export const maxSizeModifier: Partial<Modifier<"maxSize", Options>> = {
 	name: "maxSize",
 	enabled: true,
 	phase: "main",

@@ -1,14 +1,15 @@
 {
-  "extends": "plasmo/templates/tsconfig.base",
-  "exclude": ["node_modules"],
-  "include": [".plasmo/**/*", "./**/*.ts", "./**/*.tsx"],
-  "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "jsx": "preserve",
-    "paths": {
-      "~*": ["./*"]
-    },
-    "baseUrl": ".",
-    "isolatedModules": false
-  }
+	"extends": "plasmo/templates/tsconfig.base",
+	"exclude": ["node_modules"],
+	"include": [".plasmo/**/*", "./**/*.ts", "./**/*.tsx"],
+	"compilerOptions": {
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"jsx": "preserve",
+		"strictNullChecks": true,
+		"paths": {
+			"~*": ["./*"]
+		},
+		"baseUrl": ".",
+		"isolatedModules": false
+	}
 }
