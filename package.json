@@ -8,8 +8,13 @@
 	"scripts": {
 		"dev:ff": "plasmo dev --target=firefox-mv2",
 		"build:ff": "plasmo build --target=firefox-mv2",
-		"dev:chrome": "plasmo dev --target=chrome-mv2",
-		"build:chrome": "plasmo build --target=chrome-mv2"
+		"build:ff:ci": "plasmo build --target=firefox-mv2 --zip",
+		"dev:chrome": "plasmo dev --target=chrome-mv3",
+		"build:chrome": "plasmo build --target=chrome-mv3",
+		"build:chrome:ci": "plasmo build --target=chrome-mv3 --zip",
+		"release:minor": "npm version minor --access public",
+		"release:major": "npm version major --access public",
+		"release:patch": "npm version patch --access public"
 	},
 	"manifest": {
 		"host_permissions": [

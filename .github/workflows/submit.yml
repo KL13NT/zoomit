@@ -1,27 +1,29 @@
 name: "Submit to Web Store"
 on:
-  workflow_dispatch:
+  push:
+    tags:
+      - v**
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Cache pnpm modules
+      - name: Cache npm modules
         uses: actions/cache@v3
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-
-      - uses: pnpm/action-setup@v2.2.1
+      - uses: actions/setup-node@v3
         with:
-          version: 7.1.0
-          run_install: true
+          node-version: 16
       - name: Build and zip extension artifact
-        run: pnpm build -- --zip
+        run:
+          - npm run build:ff:ci
       - name: Browser Platform Publish
         uses: PlasmoHQ/bpp@v2
         with:
           keys: ${{ secrets.SUBMIT_KEYS }}
-          artifact: build/chrome-mv3-prod.zip
+          artifact: build/firefox-mv2-prod.zip
