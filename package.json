@@ -1,7 +1,7 @@
 {
 	"name": "imagus",
 	"displayName": "Imagus",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "A basic Plasmo extension.",
 	"author": "pc",
 	"packageManager": "npm@8.3.1",
