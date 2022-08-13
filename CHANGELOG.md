@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/KL13NT/zoomit/compare/v0.2.0...v0.2.1) (2022-08-13)
+
+
+### Bug Fixes
+
+* chrome incompatibility with standard WebExtensions APIs ([e3f1dbb](https://github.com/KL13NT/zoomit/commit/e3f1dbb9a6a284eb505dc177908b51b915ec6766))
+
+
+
 ## Changelog
 
 ### v0.3.0

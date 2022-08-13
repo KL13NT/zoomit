@@ -1,7 +1,7 @@
 {
 	"name": "zoomit",
 	"displayName": "Zoomit",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Enlarge media on the web with a simple hover of your mouse!",
 	"author": "Nabil Tharwat <nabil.tharwat@outlook.com>",
 	"packageManager": "npm@8.3.1",
