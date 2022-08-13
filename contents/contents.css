@@ -1,0 +1,20 @@
+.imagus-popup-image {
+	object-fit: contain;
+	pointer-events: auto;
+	max-height: 95vh;
+	max-width: 95vw;
+	z-index: 9999;
+}
+
+#plasmo-shadow-container {
+	pointer-events: none;
+}
+
+.imagus-popup-container {
+	pointer-events: none;
+	position: fixed;
+}
+
+#plasmo-mount-container {
+	pointer-events: none;
+}

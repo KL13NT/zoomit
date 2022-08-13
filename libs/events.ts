@@ -1,7 +1,11 @@
-import type { MouseMoveProps, UpdateInstanceProps } from "~interfaces";
+import type {
+	KeyUpProps,
+	MouseMoveProps,
+	Replacer,
+	UpdateInstanceProps,
+} from "~interfaces";
 
-import { generateGetBoundingClientRect } from "./utilities";
-import { websites } from "./websites";
+import { generateGetBoundingClientRect, subtreeHasTarget } from "./utilities";
 
 export const updateInstance = ({
 	x,
@@ -18,16 +22,30 @@ export const updateInstance = ({
 let target: HTMLElement | null = null;
 let timeout: NodeJS.Timeout | null = null;
 
+export const onKeyUp = ({ setState }: KeyUpProps) => {
+	setState(null);
+};
+
 export const onMouseMove = ({
 	ev,
-	state,
 	instance,
 	virtualElement,
 	setState,
 }: MouseMoveProps) => {
 	const evTarget = ev.target as HTMLElement;
 
-	if (evTarget === target) {
+	updateInstance({
+		x: ev.clientX,
+		y: ev.clientY,
+		instance,
+		virtualElement,
+	});
+
+	if (
+		target &&
+		(evTarget === target ||
+			subtreeHasTarget(instance.state.elements.popper, evTarget))
+	) {
 		return;
 	}
 
@@ -36,24 +54,28 @@ export const onMouseMove = ({
 		timeout = null;
 	}
 
-	if (state) setState(null);
+	setState(null);
 
 	target = evTarget;
-	timeout = setTimeout(() => {
+	timeout = setTimeout(async () => {
 		if (evTarget.tagName !== "IMG") return;
 
 		const { src } = evTarget as HTMLImageElement;
 
 		const url = new URL(src);
-		const replacers = websites[url.hostname];
+		const data = (await chrome.storage.local.get(url.hostname)) as Replacer[];
 
+		if (!data) return;
+
+		const replacers = data[url.hostname];
 		for (const replacer of replacers) {
-			if (!replacer.regex.test(src)) {
+			const regex = new RegExp(replacer.regex);
+			if (!regex.test(src)) {
 				// eslint-disable-next-line no-continue
 				continue;
 			}
 
-			const replaced = src.replace(replacer.regex, replacer.result);
+			const replaced = src.replace(regex, replacer.result);
 			setState({
 				type: replacer.type,
 				src: replaced,
@@ -63,23 +85,5 @@ export const onMouseMove = ({
 				},
 			});
 		}
-
-		const onTargetMouseMove = (targetMouseMoveEvent: MouseEvent) =>
-			updateInstance({
-				x: targetMouseMoveEvent.clientX,
-				y: targetMouseMoveEvent.clientY,
-				instance,
-				virtualElement,
-			});
-
-		const onTargetMouseLeave = () => {
-			setState(null);
-
-			evTarget.removeEventListener("mouseleave", onTargetMouseLeave);
-			evTarget.removeEventListener("mousemove", onTargetMouseMove);
-		};
-
-		evTarget.addEventListener("mousemove", onTargetMouseMove);
-		evTarget.addEventListener("mouseleave", onTargetMouseLeave);
 	}, 500);
 };

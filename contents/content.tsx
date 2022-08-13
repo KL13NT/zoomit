@@ -1,20 +1,15 @@
 import { createPopper } from "@popperjs/core";
 import cssText from "data-text:./contents.css";
 import type { PlasmoContentScript } from "plasmo";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { PopupState } from "~interfaces";
-import { onMouseMove, updateInstance } from "~libs/events";
-import {
-	applyMaxSizeModifier,
-	maxSizeModifier,
-	preventOverflowModifier,
-} from "~libs/modifiers";
+import { onKeyUp, onMouseMove } from "~libs/events";
+import { preventOverflowModifier } from "~libs/modifiers";
 import {
 	createRootContainer,
 	createStyleSheet,
 	generateGetBoundingClientRect,
-	throttle,
 } from "~libs/utilities";
 
 export const config: PlasmoContentScript = {
@@ -31,38 +26,42 @@ const virtualElement = {
 
 // @ts-ignore
 const instance = createPopper(virtualElement, container, {
-	modifiers: [preventOverflowModifier, maxSizeModifier, applyMaxSizeModifier],
+	placement: "auto",
+	strategy: "fixed",
+	modifiers: [preventOverflowModifier],
+});
+
+const resizeObserver = new ResizeObserver(() => {
+	instance.update();
 });
 
 function Popup() {
 	const [state, setState] = useState<PopupState | null>(null);
+	const imageRef = useRef<HTMLImageElement>(null);
+	const videoRef = useRef<HTMLVideoElement>(null);
 
 	useEffect(() => {
-		const debouncedMouseMoveHandler = throttle(
-			this,
-			(ev: MouseEvent) =>
-				onMouseMove({
-					ev,
-					instance,
-					state,
-					virtualElement,
-					setState,
-				}),
-			50
+		document.addEventListener("keyup", (ev) => onKeyUp({ ev, setState }));
+		document.addEventListener("mousemove", (ev) =>
+			onMouseMove({
+				ev,
+				instance,
+				virtualElement,
+				setState,
+			})
 		);
-
-		document.addEventListener("mousemove", debouncedMouseMoveHandler);
 	}, []);
 
 	useEffect(() => {
-		if (!state) return;
+		if (imageRef.current && !imageRef.current.dataset.observed) {
+			resizeObserver.observe(imageRef.current);
+			imageRef.current.dataset.observed = "true";
+		}
 
-		updateInstance({
-			x: state.trigger.x,
-			y: state.trigger.y,
-			instance,
-			virtualElement,
-		});
+		if (videoRef.current && !videoRef.current.dataset.observed) {
+			resizeObserver.observe(videoRef.current);
+			videoRef.current.dataset.observed = "true";
+		}
 	}, [state]);
 
 	return (
@@ -70,6 +69,7 @@ function Popup() {
 			{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
 			<video
 				src={state?.src}
+				ref={videoRef}
 				className="imagus-popup-image"
 				style={{
 					display: state?.src && state.type !== "image" ? "initial" : "none",
@@ -79,6 +79,7 @@ function Popup() {
 			/>
 			<img
 				src={state?.src}
+				ref={imageRef}
 				className="imagus-popup-image"
 				style={{ display: state?.src ? "initial" : "none" }}
 				alt=""
