@@ -97,7 +97,7 @@ export const addWebsiteToStorage = async ({
 
 	if (!data[website]) {
 		await browser.storage.local.set({
-			[website]: replacer,
+			[website]: [replacer],
 		});
 	} else {
 		await browser.storage.local.set({
