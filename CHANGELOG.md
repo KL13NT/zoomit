@@ -1,3 +1,17 @@
+## [0.2.2](https://github.com/KL13NT/zoomit/compare/v0.2.1...v0.2.2) (2022-08-13)
+
+
+### Bug Fixes
+
+* adding new website not added before crashes popup ([4189ba7](https://github.com/KL13NT/zoomit/commit/4189ba7bebca31147a5144d5bf49f4b65b682efa))
+
+
+### Reverts
+
+* Revert "chore(release): 0.2.2 🎉" ([8ebdae3](https://github.com/KL13NT/zoomit/commit/8ebdae3238e303a46ffa721012db898e91a61add))
+
+
+
 ## [0.2.1](https://github.com/KL13NT/zoomit/compare/v0.2.0...v0.2.1) (2022-08-13)
 
 ### Bug Fixes
