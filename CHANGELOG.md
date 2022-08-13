@@ -1,55 +1,39 @@
 ## [0.2.1](https://github.com/KL13NT/zoomit/compare/v0.2.0...v0.2.1) (2022-08-13)
 
+### 🐞 Bug Fixes
 
-### Bug Fixes
+- chrome incompatibility with standard WebExtensions APIs ([e3f1dbb](https://github.com/KL13NT/zoomit/commit/e3f1dbb9a6a284eb505dc177908b51b915ec6766))
 
-* chrome incompatibility with standard WebExtensions APIs ([e3f1dbb](https://github.com/KL13NT/zoomit/commit/e3f1dbb9a6a284eb505dc177908b51b915ec6766))
+## [0.2.0](https://github.com/KL13NT/zoomit/compare/v0.1.0...v0.2.0) (2022-08-13)
 
+### 🐞 Bug Fixes
 
-
-## Changelog
-
-### v0.3.0
-
-🐞 Bug fixes:
-
-- Fixed weird resizing and jittering bug when displaying images larger
-  than half of the viewport.
-- Fixed laggy movement of enlarged media. All responses are 60 FPS
-  now.
-- Fixed large memory usage caused by potential memory leak which
+- chrome incompatibility with standard WebExtensions APIs ([e3f1dbb](https://github.com/KL13NT/zoomit/commit/e3f1dbb9a6a284eb505dc177908b51b915ec6766))
+- weird resizing and jittering bug when displaying images larger
+  than half of the viewport ([e68b6a4](https://github.com/KL13NT/zoomit/commit/e68b6a40b0ae723dd148ec98065cffe3c6effa06))
+- laggy movement of enlarged media. All responses are 60 FPS
+  now ([e68b6a4](https://github.com/KL13NT/zoomit/commit/e68b6a40b0ae723dd148ec98065cffe3c6effa06))
+- large memory usage caused by potential memory leak which
   originated by storing and operating on the list of websites in the
-  content script.
+  content script ([e68b6a4](https://github.com/KL13NT/zoomit/commit/e68b6a40b0ae723dd148ec98065cffe3c6effa06))
 
-### v0.2.0
+### ✨ Features:
 
-🐞 Bug fixes:
-
-- Fixed weird resizing and jittering bug when displaying images larger
-  than half of the viewport.
-- Fixed laggy movement of enlarged media. All responses are 60 FPS
-  now.
-- Fixed large memory usage caused by potential memory leak which
-  originated by storing and operating on the list of websites in the
-  content script.
-
-✨ Features:
-
-- Popup listing and website support management. This release comes
+- popup listing and website support management. This release comes
   with a popup action that displays all currently supported websites
-  alongside a form to add new websites to the support list.
-- Greeting page with changelog and better documentation for users.
-- Performance optimizations and reduces memory usage by depending on
+  alongside a form to add new websites to the support list ([afb918d](https://github.com/KL13NT/zoomit/commit/afb918d199e6e2fc87a21d463ea05d862772391c))
+- greeting page with changelog and better documentation for users ([e68b6a4](https://github.com/KL13NT/zoomit/commit/e68b6a40b0ae723dd148ec98065cffe3c6effa06))
+- performance optimizations and reduces memory usage by depending on
   storage rather than in-memory site management and having 1 event
   listener active at all times instead of multiple, constantly spawned
-  and despawned listeners.
-- Storage migration system. This system's role is to maintain the
+  and despawned listeners ([e68b6a4](https://github.com/KL13NT/zoomit/commit/e68b6a40b0ae723dd148ec98065cffe3c6effa06))
+- storage migration system. This system's role is to maintain the
   storage, upgrade it, and apply any needed transformations in case of
   changes to the data structure Zoomit uses. This guarantees that your
   custom-added websites remain untouched as Zoomit is updated. This
   system is completely automatic and doesn't require anything further
-  from you.
+  from you ([ddd7605](https://github.com/KL13NT/zoomit/commit/ddd76059a8f09649fab6d770a936bf6a4236e7aa))
 
-### v0.1.0
+## 0.1.0
 
 Initial release! 🥳
