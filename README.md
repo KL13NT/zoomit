@@ -2,7 +2,7 @@
 
 Zoomit is created by [Nabil Tharwat](https://iamnabil.netlify.app) and is
 licensed under GNU GPLv3. Source code can be found on the public [GitHub
-Repository](https://github.com/KL13NT/imagus#readme).
+Repository](https://github.com/KL13NT/zoomit#readme).
 
 ## Motivation
 

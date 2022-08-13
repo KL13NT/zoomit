@@ -57,17 +57,17 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/KL13NT/imagus.git"
+		"url": "git+https://github.com/KL13NT/zoomit.git"
 	},
 	"keywords": [
 		"browser",
 		"extension",
 		"webextensions",
-		"imagus"
+		"zoomit"
 	],
 	"license": "GPL-3.0-or-later",
 	"bugs": {
-		"url": "https://github.com/KL13NT/imagus/issues"
+		"url": "https://github.com/KL13NT/zoomit/issues"
 	},
-	"homepage": "https://github.com/KL13NT/imagus#readme"
+	"homepage": "https://github.com/KL13NT/zoomit#readme"
 }

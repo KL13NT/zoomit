@@ -1,5 +1,6 @@
 name: "Submit to Web Store"
 on:
+  workflow_dispatch:
   push:
     tags:
       - v**
@@ -19,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Install dependencies
+        run: npm ci
       - name: Build and zip extension artifact
         run: npm run build:ff:ci
       - name: Browser Platform Publish

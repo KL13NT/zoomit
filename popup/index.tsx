@@ -106,7 +106,7 @@ function Popup() {
 		<div className="popup bg-white rounded px-8 pt-6 pb-8 mb-4">
 			<h1 className="text-4xl text-center mt-10">Zoomit!</h1>
 			<a
-				href="https://github.com/KL13NT/imagus#readme"
+				href="https://github.com/KL13NT/zoomit#readme"
 				target="_blank"
 				rel="noreferrer"
 				className="text-center mt-2 block">
