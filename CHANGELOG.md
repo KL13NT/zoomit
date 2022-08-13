@@ -1,5 +1,17 @@
 ## Changelog
 
+### v0.3.0
+
+🐞 Bug fixes:
+
+- Fixed weird resizing and jittering bug when displaying images larger
+  than half of the viewport.
+- Fixed laggy movement of enlarged media. All responses are 60 FPS
+  now.
+- Fixed large memory usage caused by potential memory leak which
+  originated by storing and operating on the list of websites in the
+  content script.
+
 ### v0.2.0
 
 🐞 Bug fixes:

@@ -14,7 +14,8 @@
 		"build:chrome:ci": "plasmo build --target=chrome-mv3 --zip",
 		"release:minor": "npm version minor --access public",
 		"release:major": "npm version major --access public",
-		"release:patch": "npm version patch --access public"
+		"release:patch": "npm version patch --access public",
+		"version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
 	},
 	"manifest": {
 		"host_permissions": [
@@ -46,6 +47,7 @@
 		"@types/webextension-polyfill": "^0.9.0",
 		"@typescript-eslint/eslint-plugin": "^5.32.0",
 		"@typescript-eslint/parser": "^5.32.0",
+		"conventional-changelog-cli": "^2.2.2",
 		"eslint": "^8.21.0",
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^8.5.0",
