@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+	width: 100%;
+	font-size: 16px !important;
+}
+
+ul {
+	@apply list-disc list-inside;
+}
+
+p {
+	@apply mt-4 text-lg;
+}
+
+h3 {
+	@apply text-xl mt-4;
+}
+
+h2 {
+	@apply text-2xl mt-8;
+}
+
+a {
+	@apply underline text-lg;
+}
