@@ -1,9 +1,9 @@
 {
-	"name": "imagus",
-	"displayName": "Imagus",
+	"name": "zoomit",
+	"displayName": "Zoomit",
 	"version": "0.1.0",
-	"description": "A basic Plasmo extension.",
-	"author": "pc",
+	"description": "Enlarge media on the web with a simple hover of your mouse!",
+	"author": "Nabil Tharwat <nabil.tharwat@outlook.com>",
 	"packageManager": "npm@8.3.1",
 	"scripts": {
 		"dev:ff": "plasmo dev --target=firefox-mv2",
@@ -21,21 +21,26 @@
 			"https://*/*"
 		],
 		"permissions": [
-			"activeTab"
+			"activeTab",
+			"storage"
 		]
 	},
 	"dependencies": {
 		"@popperjs/core": "^2.11.5",
+		"marked": "^4.0.18",
 		"plasmo": "0.50.1",
 		"react": "18.2.0",
-		"react-dom": "18.2.0"
+		"react-dom": "18.2.0",
+		"semver": "^7.3.7"
 	},
 	"devDependencies": {
 		"@plasmohq/prettier-plugin-sort-imports": "1.1.1",
 		"@types/chrome": "0.0.193",
+		"@types/marked": "^4.0.3",
 		"@types/node": "18.0.3",
 		"@types/react": "18.0.15",
 		"@types/react-dom": "18.0.6",
+		"@types/semver": "^7.3.11",
 		"@typescript-eslint/eslint-plugin": "^5.32.0",
 		"@typescript-eslint/parser": "^5.32.0",
 		"eslint": "^8.21.0",
@@ -45,7 +50,9 @@
 		"eslint-plugin-jsx-a11y": "^6.6.1",
 		"eslint-plugin-react": "^7.30.1",
 		"eslint-plugin-react-hooks": "^4.6.0",
+		"postcss": "^8.4.16",
 		"prettier": "^2.7.1",
+		"tailwindcss": "^3.1.8",
 		"typescript": "4.7.4"
 	},
 	"repository": {
