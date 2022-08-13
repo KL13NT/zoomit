@@ -1,12 +1,12 @@
 ## [0.2.1](https://github.com/KL13NT/zoomit/compare/v0.2.0...v0.2.1) (2022-08-13)
 
-### 🐞 Bug Fixes
+### Bug Fixes
 
 - chrome incompatibility with standard WebExtensions APIs ([e3f1dbb](https://github.com/KL13NT/zoomit/commit/e3f1dbb9a6a284eb505dc177908b51b915ec6766))
 
 ## [0.2.0](https://github.com/KL13NT/zoomit/compare/v0.1.0...v0.2.0) (2022-08-13)
 
-### 🐞 Bug Fixes
+### Bug Fixes
 
 - chrome incompatibility with standard WebExtensions APIs ([e3f1dbb](https://github.com/KL13NT/zoomit/commit/e3f1dbb9a6a284eb505dc177908b51b915ec6766))
 - weird resizing and jittering bug when displaying images larger
@@ -17,7 +17,7 @@
   originated by storing and operating on the list of websites in the
   content script ([e68b6a4](https://github.com/KL13NT/zoomit/commit/e68b6a40b0ae723dd148ec98065cffe3c6effa06))
 
-### ✨ Features:
+### Features:
 
 - popup listing and website support management. This release comes
   with a popup action that displays all currently supported websites
