@@ -1,26 +1,27 @@
 import semver from "semver";
+import browser from "webextension-polyfill";
 
+import { OnInstalledReason } from "~interfaces";
 import { websites } from "~libs/websites";
 import migrations from "~migrations/index";
 
-chrome.runtime.onInstalled.addListener(({ reason }) => {
+browser.runtime.onInstalled.addListener(({ reason }) => {
 	const isUpdateOrInstall =
-		reason === chrome.runtime.OnInstalledReason.UPDATE ||
-		reason === chrome.runtime.OnInstalledReason.INSTALL;
+		reason === OnInstalledReason.UPDATE || reason === OnInstalledReason.INSTALL;
 
 	if (isUpdateOrInstall) {
-		chrome.tabs.create({
-			url: chrome.runtime.getURL(
-				chrome.runtime.getManifest().options_ui?.page as string
+		browser.tabs.create({
+			url: browser.runtime.getURL(
+				browser.runtime.getManifest().options_ui?.page as string
 			),
 		});
 	}
 });
 
-chrome.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
-	const { version } = chrome.runtime.getManifest();
-	const isUpdate = reason === chrome.runtime.OnInstalledReason.UPDATE;
-	const isInstall = reason === chrome.runtime.OnInstalledReason.INSTALL;
+browser.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
+	const { version } = browser.runtime.getManifest();
+	const isUpdate = reason === OnInstalledReason.UPDATE;
+	const isInstall = reason === OnInstalledReason.INSTALL;
 
 	if (isUpdate) {
 		console.log(
@@ -49,7 +50,7 @@ chrome.runtime.onInstalled.addListener(async ({ reason, previousVersion }) => {
 	} else if (isInstall) {
 		console.log(`Detected install for the first time, initializing storage`);
 
-		await chrome.storage.local.set({
+		await browser.storage.local.set({
 			meta: {},
 			...websites,
 		});

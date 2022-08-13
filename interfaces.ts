@@ -69,3 +69,11 @@ export interface Migration {
 	migrator: () => Promise<void>;
 	version: string;
 }
+
+// eslint-disable-next-line no-shadow
+export enum OnInstalledReason {
+	INSTALL = "install",
+	UPDATE = "update",
+	CHROME_UPDATE = "chrome_update",
+	SHARED_MODULE_UPDATE = "shared_module_update",
+}

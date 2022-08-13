@@ -1,4 +1,5 @@
 /* eslint-disable react/no-danger */
+import browser from "webextension-polyfill";
 
 /* eslint-disable react/no-unescaped-entities */
 import "./options.css";
@@ -16,7 +17,7 @@ function Options() {
 			<h1 className="text-4xl text-center">Zoomit!</h1>
 			<p className="mt-4 text-center">
 				Thank you for installing Zoomit! You have Zoomit version{" "}
-				{chrome.runtime.getManifest().version}.
+				{browser.runtime.getManifest().version}.
 			</p>
 
 			<div dangerouslySetInnerHTML={{ __html: readmeHTML }} />

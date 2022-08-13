@@ -2,6 +2,9 @@
 	"extends": "plasmo/templates/tsconfig.base",
 	"exclude": ["node_modules"],
 	"include": [".plasmo/**/*", "./**/*.ts", "./**/*.tsx"],
+	"typeAcquisition": {
+		"include": ["firefox-webext-browser"]
+	},
 	"compilerOptions": {
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"jsx": "preserve",

@@ -1,4 +1,6 @@
 /* eslint-disable indent */
+import browser from "webextension-polyfill";
+
 import type { Replacer, ReplacerAddition } from "~interfaces";
 
 const excludes = ["meta"];
@@ -70,7 +72,7 @@ export const removeWebsiteFromStorage = async (
 	website: string,
 	index: number
 ) => {
-	const data = (await chrome.storage.local.get(website)) as Record<
+	const data = (await browser.storage.local.get(website)) as Record<
 		string,
 		Replacer[]
 	>;
@@ -79,7 +81,7 @@ export const removeWebsiteFromStorage = async (
 		[website]: data[website].filter((replacer, i) => i !== index),
 	};
 
-	await chrome.storage.local.set({
+	await browser.storage.local.set({
 		...modified,
 	});
 };
@@ -88,24 +90,27 @@ export const addWebsiteToStorage = async ({
 	website,
 	...replacer
 }: ReplacerAddition) => {
-	const data = (await chrome.storage.local.get(website)) as Record<
+	const data = (await browser.storage.local.get(website)) as Record<
 		string,
 		Replacer[]
 	>;
 
 	if (!data[website]) {
-		await chrome.storage.local.set({
+		await browser.storage.local.set({
 			[website]: replacer,
 		});
 	} else {
-		await chrome.storage.local.set({
+		await browser.storage.local.set({
 			[website]: [...data[website], replacer],
 		});
 	}
 };
 
 export const loadWebsitesFromStorage = async () => {
-	const data = (await chrome.storage.local.get()) as Record<string, Replacer[]>;
+	const data = (await browser.storage.local.get()) as Record<
+		string,
+		Replacer[]
+	>;
 
 	return Object.keys(data)
 		.filter((key) => !excludes.includes(key))

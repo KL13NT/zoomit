@@ -1,3 +1,5 @@
+import browser from "webextension-polyfill";
+
 import type {
 	KeyUpProps,
 	MouseMoveProps,
@@ -63,7 +65,7 @@ export const onMouseMove = ({
 		const { src } = evTarget as HTMLImageElement;
 
 		const url = new URL(src);
-		const data = (await chrome.storage.local.get(url.hostname)) as Replacer[];
+		const data = (await browser.storage.local.get(url.hostname)) as Replacer[];
 
 		if (!data) return;
 

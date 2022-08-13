@@ -16,6 +16,7 @@ module.exports = {
 	globals: {
 		NodeJS: "readonly",
 		chrome: "readonly",
+		browser: "readonly",
 	},
 	plugins: ["react", "@typescript-eslint"],
 	rules: {
@@ -27,5 +28,7 @@ module.exports = {
 		"import/no-unresolved": "off",
 		"import/extensions": "off",
 		"no-console": "off",
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": "error",
 	},
 };
