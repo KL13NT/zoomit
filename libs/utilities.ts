@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import browser from "webextension-polyfill";
 
-import type { Replacer, ReplacerAddition } from "~interfaces";
+import type { PopupState, Replacer, ReplacerAddition } from "~interfaces";
 
 const excludes = ["meta"];
 
@@ -124,4 +124,42 @@ export const loadWebsitesFromStorage = async () => {
 			}));
 		})
 		.flat();
+};
+
+type GetReplacerFromSrcReturn = Pick<
+	PopupState,
+	"type" | "replacerIndex" | "src"
+>;
+
+export const getReplacerFromSrc = async (
+	src: string,
+	lastAttemptedIndex = -1
+): Promise<GetReplacerFromSrcReturn | null> => {
+	const url = new URL(src);
+	const data = (await browser.storage.local.get(url.hostname)) as Replacer[];
+
+	if (!data) return null;
+
+	const replacers = data[url.hostname] as Replacer[];
+	const sliced = replacers.slice(lastAttemptedIndex + 1);
+
+	if (sliced.length === 0) return null;
+
+	const replacerIndex = sliced.findIndex((replacer) => {
+		const regex = new RegExp(replacer.regex);
+
+		return regex.test(src);
+	});
+
+	if (replacerIndex === -1) return null;
+
+	const replacer = sliced[replacerIndex];
+	const regex = new RegExp(replacer.regex);
+	const replaced = src.replace(regex, replacer.result);
+
+	return {
+		src: replaced,
+		type: replacer.type,
+		replacerIndex: replacerIndex + lastAttemptedIndex + 1,
+	};
 };

@@ -4,12 +4,13 @@ import type { PlasmoContentScript } from "plasmo";
 import { useEffect, useRef, useState } from "react";
 
 import type { PopupState } from "~interfaces";
-import { onKeyUp, onMouseMove } from "~libs/events";
+import { onMouseMove } from "~libs/events";
 import { preventOverflowModifier } from "~libs/modifiers";
 import {
 	createRootContainer,
 	createStyleSheet,
 	generateGetBoundingClientRect,
+	getReplacerFromSrc,
 } from "~libs/utilities";
 
 export const config: PlasmoContentScript = {
@@ -40,17 +41,31 @@ function Popup() {
 	const imageRef = useRef<HTMLImageElement>(null);
 	const videoRef = useRef<HTMLVideoElement>(null);
 
+	const onDismiss = () => {
+		setState(null);
+	};
+
 	useEffect(() => {
-		document.addEventListener("keyup", (ev) => onKeyUp({ ev, setState }));
-		document.addEventListener("mousemove", (ev) =>
+		const handleMouseMove = (ev: MouseEvent) =>
 			onMouseMove({
 				ev,
 				instance,
 				virtualElement,
 				setState,
-			})
-		);
-	}, []);
+				state,
+			});
+
+		document.addEventListener("keyup", onDismiss);
+		document.addEventListener("click", onDismiss);
+		document.addEventListener("mousemove", handleMouseMove);
+
+		// eslint-disable-next-line consistent-return
+		return () => {
+			document.removeEventListener("keyup", onDismiss);
+			document.removeEventListener("click", onDismiss);
+			document.removeEventListener("mousemove", handleMouseMove);
+		};
+	}, [state]);
 
 	useEffect(() => {
 		if (imageRef.current && !imageRef.current.dataset.observed) {
@@ -64,11 +79,33 @@ function Popup() {
 		}
 	}, [state]);
 
+	const handleError = async () => {
+		console.log("error on image load!");
+
+		if (!state) return;
+
+		const replacer = await getReplacerFromSrc(
+			state.original,
+			state.replacerIndex
+		);
+
+		if (!replacer) return;
+		const { src, replacerIndex, type } = replacer;
+
+		setState({
+			...state,
+			src,
+			replacerIndex,
+			type,
+		});
+	};
+
 	return (
 		<>
 			{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
 			<video
 				src={state?.src}
+				onError={handleError}
 				ref={videoRef}
 				className="imagus-popup-image"
 				style={{
@@ -79,6 +116,7 @@ function Popup() {
 			/>
 			<img
 				src={state?.src}
+				onError={handleError}
 				ref={imageRef}
 				className="imagus-popup-image"
 				style={{ display: state?.src ? "initial" : "none" }}

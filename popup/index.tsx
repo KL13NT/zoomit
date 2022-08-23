@@ -34,7 +34,8 @@ function Listing({ websites, removeWebsite }: ListingProps) {
 				<li
 					className="flex justify-between items-center mt-6"
 					data-website={website.website}
-					data-index={website.index}>
+					data-index={website.index}
+					key={`${website.website}${website.index}`}>
 					<div className="mr-4">
 						<p className="whitespace-nowrap">
 							<span className="font-bold mr-2">Website:</span>

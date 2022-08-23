@@ -39,19 +39,17 @@ type TriggerCoordinates = {
 
 export interface PopupState {
 	src: string;
+	original: string;
 	type: MediaType;
 	trigger: TriggerCoordinates;
+	replacerIndex: number;
 }
 
 export interface MouseMoveProps {
 	ev: MouseEvent;
 	virtualElement: VirtualElement;
 	instance: Instance;
-	setState: Dispatch<SetStateAction<PopupState | null>>;
-}
-
-export interface KeyUpProps {
-	ev: KeyboardEvent;
+	state: PopupState | null;
 	setState: Dispatch<SetStateAction<PopupState | null>>;
 }
 
