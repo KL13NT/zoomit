@@ -21,6 +21,8 @@ function Options() {
 			</p>
 
 			<div dangerouslySetInnerHTML={{ __html: readmeHTML }} />
+
+			<h2>Changelog</h2>
 			<div dangerouslySetInnerHTML={{ __html: changelogHTML }} />
 		</div>
 	);

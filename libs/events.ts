@@ -55,9 +55,12 @@ export const onMouseMove = ({
 	timeout = setTimeout(async () => {
 		if (evTarget.tagName !== "IMG") return;
 
-		const { src } = evTarget as HTMLImageElement;
-		const replacer = await getReplacerFromSrc(src);
+		const { src: original } = evTarget as HTMLImageElement;
+		const src = original.startsWith("/")
+			? `${window.location.origin}${original}`
+			: original;
 
+		const replacer = await getReplacerFromSrc(src);
 		if (!replacer) return;
 
 		const { replacerIndex, src: replacerSrc, type } = replacer;

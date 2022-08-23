@@ -17,6 +17,7 @@ module.exports = {
 		NodeJS: "readonly",
 		chrome: "readonly",
 		browser: "readonly",
+		location: "readonly",
 	},
 	plugins: ["react", "@typescript-eslint"],
 	rules: {
