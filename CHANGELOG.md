@@ -1,3 +1,17 @@
+# [0.3.0](https://github.com/KL13NT/zoomit/compare/v0.2.2...v0.3.0) (2022-08-23)
+
+
+### Bug Fixes
+
+* conflicting replacers don't match on retry [#8](https://github.com/KL13NT/zoomit/issues/8) ([e7dbf25](https://github.com/KL13NT/zoomit/commit/e7dbf2574c46a0651a0914aeb34670d5ab7466ee))
+
+
+### Features
+
+* shadow and border and on click dismiss ([29fc394](https://github.com/KL13NT/zoomit/commit/29fc39487d19423ca24cbceca5b3ac386d56b940))
+
+
+
 ## [0.2.2](https://github.com/KL13NT/zoomit/compare/v0.2.1...v0.2.2) (2022-08-13)
 
 
