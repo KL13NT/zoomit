@@ -15,7 +15,8 @@
 		"release:minor": "npm version minor --access public",
 		"release:major": "npm version major --access public",
 		"release:patch": "npm version patch --access public",
-		"version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+		"version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+		"lint": "eslint . --ext .ts,.tsx"
 	},
 	"manifest": {
 		"host_permissions": [
