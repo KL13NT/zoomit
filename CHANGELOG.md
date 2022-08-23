@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/KL13NT/zoomit/compare/v0.3.0...v0.3.1) (2022-08-23)
+
+
+### Bug Fixes
+
+* images with relative src fail to load [#9](https://github.com/KL13NT/zoomit/issues/9) ([644b3aa](https://github.com/KL13NT/zoomit/commit/644b3aa72e4f80b0b01844cdf45d47625a90184e))
+
+
+
 # [0.3.0](https://github.com/KL13NT/zoomit/compare/v0.2.2...v0.3.0) (2022-08-23)
 
 
